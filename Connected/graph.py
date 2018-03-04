@@ -27,9 +27,7 @@ def generate_plot():
 	vertex_edges = [(n_vertex, generate_graph(n_vertex).number_of_edges()) 
 		for n_vertex in [x * args.vertex for x in range(1,args.iterations+1)]]
 
-	result = list(zip(*vertex_edges))
-	x_axis = result[0]
-	y_axis = result[1]
+	[x_axis, y_axis] = list(zip(*vertex_edges))
 	draw_plot(x_axis, y_axis)
 
 
