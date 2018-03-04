@@ -1,2 +1,2 @@
-# SDLG
+# SDLE
 Large Scale Distributed Systems
