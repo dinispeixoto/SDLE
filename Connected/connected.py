@@ -1,8 +1,11 @@
+#!/usr/local/bin/python3
+
 import random
 import argparse
-from sys import argv
 import networkx as nx
 import matplotlib.pyplot as plt
+
+from sys import argv
 
 def draw_graph(graph):
 	nx.draw(graph)
@@ -18,9 +21,10 @@ def generate_graph(n_vertex):
 	Graph = nx.Graph()
 	Graph.add_nodes_from(range(n_vertex))
 
-	while(not(nx.is_connected(Graph))):
-		[x,y] = random.sample(Graph.nodes,2)
+	while not nx.is_connected(Graph):
+		[x,y] = random.sample(Graph.nodes, 2)
 		Graph.add_edge(x,y)
+
 	return Graph
 
 def generate_plot():
@@ -32,7 +36,7 @@ def generate_plot():
 
 
 if __name__== "__main__":
-	parser = argparse.ArgumentParser(prog='graph')
+	parser = argparse.ArgumentParser(prog='connected')
 	parser.add_argument('-v','--vertex',help = 'number of initial vertex', type=int, default=10)
 	parser.add_argument('-i','--iterations', help='number of iterations', type=int, default=10)
 	parser.add_argument('-o', '--output', help='output file', required=True)
