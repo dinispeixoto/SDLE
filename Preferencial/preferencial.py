@@ -14,8 +14,8 @@ def draw_graph(Graph):
     plt.savefig(args.output)
 
 def draw_plot(x_axis, y_axis):
-    plt.ylabel('Degree')
-    plt.xlabel('Nodes')
+    plt.xlabel('Degree')
+    plt.ylabel('Nodes')
     plt.plot(x_axis, y_axis, marker='.')
     plt.savefig(args.output)
 
@@ -41,7 +41,7 @@ def generate_plot():
     for k, v in degree_nodes.items():
         print(k,v)
     
-    y_axis, x_axis = zip(*degree_nodes.items())    
+    x_axis, y_axis = zip(*degree_nodes.items())    
     draw_plot(x_axis, y_axis)    
 
 if __name__== "__main__":
