@@ -4,8 +4,8 @@ import random
 import argparse
 import networkx as nx
 import matplotlib.pyplot as plt
-from collections import Counter
 
+from collections import Counter
 from sys import argv
 
 def draw_graph(Graph):
@@ -25,16 +25,20 @@ def generate_preferencial_graph(n_vertex):
 
     while not nx.is_connected(Graph):
         probability_list = sum([[node] * Graph.node[node]['weight'] for node in Graph.nodes],[]) 
-        [x,y] = random.sample(probability_list, 2)
-        Graph.add_edge(x,y)
-        Graph.node[x]['weight'] += 1 
-        Graph.node[y]['weight'] += 1
+        source_node = random.choice(list(Graph.nodes()))
+        dest_node = random.choice(probability_list)
+        Graph.add_edge(source_node, dest_node)
+        try:
+            nx.find_cycle(Graph)
+            Graph.remove_edge(source_node, dest_node)
+        except:
+            Graph.node[source_node]['weight'] += 1 
+            Graph.node[dest_node]['weight'] += 1
         
     return Graph 
 
 def generate_plot():
-    degrees = [degree for (node, degree) in generate_preferencial_graph(args.nodes).degree()]
-    degree_nodes = { degree:sum(i >= degree for i in degrees) for degree in degrees}
+    degree_nodes = Counter([degree for (node, degree) in generate_preferencial_graph(args.nodes).degree()])
     x_axis, y_axis = zip(*degree_nodes.items())    
     draw_plot(x_axis, y_axis)    
 
